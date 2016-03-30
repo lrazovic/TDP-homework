@@ -8,17 +8,17 @@ int main(int argc, char* argv[]){
 
     //Minimo
     int * minimo = valore + 1;
-
-	  printf("Inserisci il valore: \n");
-	  scanf("%d", minimo);
+    
+    printf("Inserisci il valore: \n");
+    scanf("%d", minimo);
     *valore = *minimo;
 
     while(*(valore) != 0){
-		    printf("Inserisci il valore: \n");
-		    scanf("%d",valore);
-		    if(*valore < *(minimo) && (*valore != 0))
-          *(minimo) = *valore;
-	} //Chiudo While
+        printf("Inserisci il valore: \n");
+        scanf("%d",valore);
+        if(*valore < *(minimo) && (*valore != 0))
+            *(minimo) = *valore;
+        } //Chiudo While
 
     printf("Hai scelto 0, chiudo\n");
     printf("Il minimo e' %d \n", *(minimo));
