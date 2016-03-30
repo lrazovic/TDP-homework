@@ -31,7 +31,7 @@ int main(int argc, char *argv[]){
     else {
       printf("Celsius: %f, Kelvin: %f \n", (*valori -32)*5/9, (*valori -32)*5/9 + 273.15);
     }
-    
+
     //Libero la memoria
     free(mem);
 }
