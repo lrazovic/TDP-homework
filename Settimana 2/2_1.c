@@ -1,14 +1,14 @@
-#include <stdio.h>
-#include <stdlib.h>
+// a x + b = 0, trova la x 
 
-int main(int argc, char** argv){
-    int a;
-    printf("Inserisci un numero: \n");
-    scanf("%d",&a);
-    int *a_ptr = &a;
-    printf("----------\n");
-    for(int i = 0; i<a; i++){
-        printf("%d\n",i);
-    }
-    printf("%d\n", a_ptr);
+#include <stdio.h>
+
+int main(int argc, char const *argv[]) {
+    float a,b,x;
+    
+    printf("Inserisci il coefficente di a\n");
+    scanf("%f",&a);
+    printf("Inserisci il coefficente di b\n");
+    scanf("%f",&b);
+    x = -b/a;
+    printf("La x vale: %f\n", x);
 }
