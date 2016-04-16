@@ -26,7 +26,7 @@ void    vec_write(char *filename, double *v, int dim){
     FILE* txt= fopen(filename, "w");
     fprintf(txt, "%d", dim);
     for (int i = 0; i < dim; i++){
-        fprintf(txt, "%lf", v[i]);
+        fprintf(txt, "%.1f ", v[i]);
     }
 }
 
@@ -46,7 +46,7 @@ double  vec_dot(double *src1, double *src2, int dim){
 }
 
 
-//Da fare
+//Corretto
 double* vec_clone(double *v, int dim){
     double * clone = (double*) calloc(dim, sizeof(double));
     for(int i = 0; i < dim; i++){
