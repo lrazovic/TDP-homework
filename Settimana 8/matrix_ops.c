@@ -61,16 +61,16 @@ void Matrix_triangularize(float**m, int num_rows, int num_cols) {
 }
 
 float** Matrix_allocArrayOfArray(int num_rows, int num_cols){
-  float** matrix = (float**) malloc(num_rows*sizeof(float**));
-  for(int i=0;i<num_rows;i++){
-    matrix[i]=(float*) malloc(sizeof(float*)*num_cols);
-	}
-return matrix;
+    float** matrix;
+    matrix=(float**) malloc(num_rows*sizeof(float*));
+    for (int i=0;i<num_rows;i++){
+        matrix[i]=(float*) malloc(num_cols*sizeof(float));}
+    return matrix;
 }
 
 void Matrix_freeArrayOfArray(float** m, int num_rows){
   for(int i = 0; i < num_rows; i++)
-	free(m[i]);
+  free(m[i]);
 free(m);
 }
 
@@ -139,10 +139,11 @@ float** Matrix_clone(float** src, int num_rows, int num_cols){
 }
 
 float** Matrix_copyTransposed(float** src, int num_rows, int num_cols){
-  float ** transposed = Matrix_alloc(num_rows,num_cols);
+  float ** transposed = Matrix_alloc(num_cols,num_rows);
 	for (int r = 0; r < num_rows; r++){
-		for (int c = 0; c < num_cols; c++)
-			transposed[r][c]=src[r][c];
+		for (int c = 0; c < num_cols; c++){
+            transposed[c][r]=src[r][c];
+    }
 	}
   return transposed;
 }
@@ -187,7 +188,11 @@ void Matrix_vectorProduct(float* dest, float** m, int num_rows, int num_cols, fl
 scambia la riga r1 ed r2 nella matrice m
 */
 void Matrix_exchangeRows(float**m , int r1, int r2){
-
+  
+  float temp = *m[r1];
+  printf("-----");
+  printf("%f",temp);
+  printf("-----");
 }
  
 /*
