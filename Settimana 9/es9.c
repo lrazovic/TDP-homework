@@ -9,10 +9,47 @@ typedef struct {
 } Mat;
 
 Mat* Mat_alloc(int rows, int cols){
-  
+  Mat* matrix = (Mat*) malloc(sizeof(Mat));
+  matrix -> cols = cols;
+  matrix -> rows = rows;
+  (*matrix).row_ptrs = (float**) malloc(rows*sizeof(float*));
+  for(int j = 0; j < rows; j++)
+    matrix->row_ptrs[j] = (float*) malloc(rows*sizeof(float));
+  return matrix;
 }
-Mat* Mat_read(char *filename);
-void Mat_print(Mat *m);
+
+Mat* Mat_read(char *filename){
+  FILE* txt= fopen(filename,"r");
+  int rows;
+  int cols;
+  fscanf(txt, "%d", &rows);
+  fscanf(txt, "%d", &cols);
+  float valore = 0;
+  Mat* matrix = Mat_alloc(rows,cols);
+  for(int r = 0; r < rows; r++){
+    for(int c = 0; c < cols; c++){
+      fscanf(txt, "%f", &valore);
+      (*matrix).row_ptrs[r][c] = valore;
+        if(feof(txt)){
+          printf("File Terminato");
+          break;
+        }
+    }
+  }
+return matrix;  
+}
+
+void Mat_print(Mat *m){
+  int rows = (*m).rows;
+  int cols = (*m).cols;
+  for(int r = 0; r < rows; r++){
+    for(int c = 0; c < cols; c++){
+      printf("%.1f   ",(*m).row_ptrs[r][c]);
+    }
+    printf("\n");
+  }
+}
+
 void Mat_write(char *filename, Mat *m);
 int  Mat_is_symmetric(Mat *m);
 void Mat_normalize_rows(Mat *m);
@@ -23,16 +60,16 @@ int main(int argc, char **argv) {
   /********************************************************
    *             TEST Mat_alloc/Mat_read                  *
    ********************************************************/
-  // printf("Leggo m1 dal file mat_1.txt...");
-  // Mat *m1 = Mat_read("mat_1.txt");
-  // printf(" fatto.\n\n");
+  printf("Leggo m1 dal file mat_1.txt...");
+  Mat *m1 = Mat_read("mat_1.txt");
+  printf(" fatto.\n\n");
 
   /********************************************************
    *                    TEST Mat_print                    *
    ********************************************************/
-  // printf("m1:\n");
-  // Mat_print(m1);
-  // printf("\n");
+  printf("m1:\n");
+  Mat_print(m1);
+  printf("\n");
 
   /********************************************************
    *                    TEST Mat_write                    *
