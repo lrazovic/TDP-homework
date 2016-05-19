@@ -50,10 +50,56 @@ void Mat_print(Mat *m){
   }
 }
 
-void Mat_write(char *filename, Mat *m);
-int  Mat_is_symmetric(Mat *m);
+void Mat_write(char *filename, Mat *m){
+  FILE* txt = fopen(filename, "w");
+  int rows = (*m).rows;
+  int cols = (*m).cols;
+  fprintf(txt,"%d ",rows);
+  fprintf(txt,"%d \n",cols);
+  for(int r = 0; r < rows; r++){
+    for(int c = 0; c < cols; c++){
+      fprintf(txt,"%.1f  ",(*m).row_ptrs[r][c]);
+    }
+    fprintf(txt,"\n");
+  }
+}
+int  Mat_is_symmetric(Mat *m){
+  int rows = (*m).rows;
+  int cols = (*m).cols;
+  for(int r = 0; r < rows; r++){
+    for(int c = 0; c < cols; c++){
+      if((*m).row_ptrs[r][c] != (*m).row_ptrs[c][r])
+        return 0;
+    }
+  }
+  return 1;
+}
 void Mat_normalize_rows(Mat *m);
-Mat* Mat_clone(Mat *m);
+//{
+  //int rows = (*m).rows;
+  //int cols = (*m).cols;
+  //float abs;
+  //for(int r = 0; r < rows; r++){
+    //for(int c = 0; r < cols; c++){
+      //abs = fabs((*m).row_ptrs[r][c]);
+      //(*m).row_ptrs[r][c] = (*m).row_ptrs[r][c]/abs;
+    //}
+  //}
+//}
+
+Mat* Mat_clone(Mat *m){
+  int rows = (*m).rows;
+  int cols = (*m).cols;
+  Mat* clone = Mat_alloc(rows,cols);
+  (*clone).cols = cols;
+  (*clone).rows = rows;
+  for(int r = 0; r < rows; r++){
+    for(int c = 0; c < cols; c++){
+      (*clone).row_ptrs[r][c]=(*m).row_ptrs[r][c];
+    }
+  }
+  return clone;
+}
 void Mat_free(Mat *m);
 
 int main(int argc, char **argv) {
@@ -74,51 +120,51 @@ int main(int argc, char **argv) {
   /********************************************************
    *                    TEST Mat_write                    *
    ********************************************************/
-  // printf("Scrivo una copia di m1 in copia_mat_1.txt...");
-  // Mat_write("copia_mat_1.txt", m1);
-  // printf(" fatto.\n\n");
+  printf("Scrivo una copia di m1 in copia_mat_1.txt...");
+  Mat_write("copia_mat_1.txt", m1);
+  printf(" fatto.\n\n");
 
   /********************************************************
    *                TEST Mat_is_symmetric                 *
    ********************************************************/
-  // printf("Leggo m2 dal file mat_2.txt...");
-  // Mat *m2 = Mat_read("mat_2.txt");
-  // printf(" fatto.\n");
-  // printf("m2:\n");
-  // Mat_print(m2);  
-  // printf("La matrice m2 e' simmetrica?\n");
-  // int is_symmmetric = Mat_is_symmetric(m2);
-  // if(is_symmmetric) {
-    // printf("Si e' simmetrica.\n");
-  // }
-  // else {
-    // printf("No non e' simmetrica.\n");
-  // }
-  // printf("\n");
+  printf("Leggo m2 dal file mat_2.txt...");
+  Mat *m2 = Mat_read("mat_2.txt");
+  printf(" fatto.\n");
+  printf("m2:\n");
+  Mat_print(m2);  
+  printf("La matrice m2 e' simmetrica?\n");
+  int is_symmmetric = Mat_is_symmetric(m2);
+    if(is_symmmetric) {
+    printf("Si e' simmetrica.\n");
+    }
+    else {
+      printf("No non e' simmetrica.\n");
+    }
+   printf("\n");
 
   /********************************************************
    *               TEST Mat_normalize_rows                *
    ********************************************************/
-  // printf("Leggo m3 dal file mat_3.txt...");
-  // Mat *m3 = Mat_read("mat_3.txt");
-  // printf(" fatto.\n");
-  // printf("m3:\n");
-  // Mat_print(m3);  
-  // printf("Normalizzo le righe della matrice m3...");
-  // Mat_normalize_rows(m3);
-  // printf(" fatto.\n");
-  // printf("La matrice m3 con righe normalizzate e':\n");
-  // Mat_print(m3);
-  // printf("\n");
+  //printf("Leggo m3 dal file mat_3.txt...");
+  //Mat *m3 = Mat_read("mat_3.txt");
+  //printf(" fatto.\n");
+  //printf("m3:\n");
+  //Mat_print(m3);  
+  //printf("Normalizzo le righe della matrice m3...");
+  //Mat_normalize_rows(m3);
+  //printf(" fatto.\n");
+  //printf("La matrice m3 con righe normalizzate e':\n");
+  //Mat_print(m3);
+  //printf("\n");
 
   /********************************************************
    *                    TEST Mat_clone                    *
    ********************************************************/
-  // printf("Clono m2...");
-  // Mat *copy_m2 = Mat_clone(m2);
-  // printf(" fatto.\n");
-  // printf("Copia m2:\n");
-  // Mat_print(copy_m2);  
+   printf("Clono m2...");
+   Mat *copy_m2 = Mat_clone(m2);
+   printf(" fatto.\n");
+   printf("Copia m2:\n");
+   Mat_print(copy_m2);  
 
   /********************************************************
    *                    TEST Mat_free                     *
