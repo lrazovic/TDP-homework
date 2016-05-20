@@ -5,7 +5,7 @@ float sparse_matrix_diagonal_sum(SparseMatrix sparse_mat) {
 if(sparse_mat == NULL)
 	return 0;
 	
-if (sparse_mat->row != sparse_mat->col)
+else if (sparse_mat->row != sparse_mat->col)
 	return sparse_matrix_diagonal_sum(sparse_mat->next);
 	
 else
