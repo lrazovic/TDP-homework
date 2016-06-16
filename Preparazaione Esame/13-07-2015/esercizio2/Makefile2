@@ -1,0 +1,22 @@
+CC=g++
+CFLAGS= -Wall
+LIBS=-lm
+OBJECTS=esercizio2.o
+CORR_OBJECTS=correttore_esercizio2.o
+UTILS_DIR=../utils
+TARGET_SRC=test_esercizio2.c
+TARGET=test_esercizio2
+
+.phony: all clean
+
+all: clean $(CORR_OBJECTS) $(OBJECTS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET_SRC) $(CORR_OBJECTS) $(OBJECTS) $(UTILS_DIR)/sparse_vector_utils.c
+
+test_esercizio2: test_esercizio2.c esercizio2.c $(UTILS_DIR)/sparse_vector_utils.c
+	$(CPPC) $(CPPFLAGS) $(LIBS) test_esercizio2.c esercizio2.c $(UTILS_DIR)/sparse_vector_utils.c -o test_esercizio2 
+
+%.o: %.c
+	$(CC) -c $(CFLAGS) -o $@ $< $(LIBS)
+
+clean:
+	rm -f $(OBJECTS) $(TARGET) 
