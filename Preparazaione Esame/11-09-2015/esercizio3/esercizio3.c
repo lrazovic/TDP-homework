@@ -1,13 +1,14 @@
 #include "esercizio3.h"
 #include <stdlib.h>
 #include <stdio.h>
+
 int lunghezza(TipoSCL src);
 int* allocaArray(int dim);
 void fatuttoilresto(int* vet,TipoSCL lista, int index);
 
 int* integralVector(int* length, TipoSCL src){
     *length =  lunghezza(src);
-    int* vettore = calloc(*length,__SIZEOF_INT__);
+    int* vettore = calloc(*length,sizeof(int));
     int index = 0;
     fatuttoilresto(vettore,src,index);
     return vettore;
